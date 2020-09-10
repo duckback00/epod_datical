@@ -68,7 +68,6 @@ pipeline {
 											  
 					  cd ${PROJ_DDB}
 					  PATH=/home/delphix_os/DaticalDB/repl:${PATH}
-					  /home/delphix_os/DaticalDB/repl/hammer show version > /tmp/jenkins1.log
 					  echo
 					  echo "==== Running - hammer version ===="
 					  hammer show version
@@ -76,7 +75,6 @@ pipeline {
 					  # invoke Datical DB\'s Deployment Packager
 					  echo "==== Running Deployment Packager ===="
 
-#					  hammer groovy deployPackager.groovy pipeline=${DATICAL_PIPELINE} scm=true labels="${BUILD_NUMBER},${RELEASE_LABEL}"
 					  hammer groovy deployPackager.groovy pipeline=${DATICAL_PIPELINE} scm=true labels="${RELEASE_LABEL}"
 
 					  '''
