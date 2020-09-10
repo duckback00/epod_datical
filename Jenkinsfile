@@ -67,6 +67,7 @@ pipeline {
 					  { set +x; } 2>/dev/null
 											  
 					  cd ${PROJ_DDB}
+					  PATH=/home/delphix_os/DaticalDB/repl:${PATH}
 					  echo
 					  echo "==== Running - hammer version ===="
 					  hammer show version
