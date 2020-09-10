@@ -68,6 +68,7 @@ pipeline {
 											  
 					  cd ${PROJ_DDB}
 					  PATH=/home/delphix_os/DaticalDB/repl:${PATH}
+					  /home/delphix_os/DaticalDB/repl/hammer show version > /tmp/jenkins1.log
 					  echo
 					  echo "==== Running - hammer version ===="
 					  hammer show version
