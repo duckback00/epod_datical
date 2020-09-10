@@ -1,11 +1,5 @@
 pipeline {
-  agent {
-    node {
-      label 'sample'
-      customWorkspace "/var/lib/jenkins/workspace/epod_datical_master/1.Package-${BUILD_NUMBER}/"
-    }
-
-  }
+  agent any
   stages {
     stage('Precheck') {
       steps {
@@ -26,25 +20,25 @@ pipeline {
       steps {
         deleteDir()
         checkout([
-                                $class: 'GitSCM',
-                                branches: [[name: '*/master']],
-                                doGenerateSubmoduleConfigurations: false,
-                                extensions: [
-                                      [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_DDB}"],
-                                      [$class: 'LocalBranch', localBranch: 'master']],
-                                    submoduleCfg: [],
-                                    userRemoteConfigs: [[url: "${GITURL}/${GIT_DATICAL_REPO}.git"]]
-                                ])
+                                          $class: 'GitSCM',
+                                          branches: [[name: '*/master']],
+                                          doGenerateSubmoduleConfigurations: false,
+                                          extensions: [
+                                                  [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_DDB}"],
+                                                  [$class: 'LocalBranch', localBranch: 'master']],
+                                                submoduleCfg: [],
+                                                userRemoteConfigs: [[url: "${GITURL}/${GIT_DATICAL_REPO}.git"]]
+                                            ])
             checkout([
-                                        $class: 'GitSCM',
-                                        branches: [[name: "$BRANCH"]],
-                                        doGenerateSubmoduleConfigurations: false,
-                                        extensions: [
-                                				[$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_SQL}"], 
-                                				[$class: 'LocalBranch', localBranch: "${BRANCH}"]],
-                                            submoduleCfg: [],
-                                            userRemoteConfigs: [[url: "${GITURL}/${GIT_SQL_REPO}.git"]]
-                                        ])
+                                                      $class: 'GitSCM',
+                                                      branches: [[name: "$BRANCH"]],
+                                                      doGenerateSubmoduleConfigurations: false,
+                                                      extensions: [
+                                                				[$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_SQL}"], 
+                                                				[$class: 'LocalBranch', localBranch: "${BRANCH}"]],
+                                                            submoduleCfg: [],
+                                                            userRemoteConfigs: [[url: "${GITURL}/${GIT_SQL_REPO}.git"]]
+                                                        ])
               }
             }
 
