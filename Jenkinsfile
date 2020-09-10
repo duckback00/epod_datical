@@ -112,7 +112,8 @@ pipeline {
 					  # invoke Datical DB's Deployment Packager
 					  echo "==== Running Deployment Packager ===="
 
-					  hammer groovy deployPackager.groovy pipeline=${DATICAL_PIPELINE} scm=true labels="${BUILD_NUMBER},${RELEASE_LABEL}"
+#					  hammer groovy deployPackager.groovy pipeline=${DATICAL_PIPELINE} scm=true labels="${BUILD_NUMBER},${RELEASE_LABEL}"
+					  hammer groovy deployPackager.groovy pipeline=${DATICAL_PIPELINE} scm=true labels="${RELEASE_LABEL}"
 
 					  '''
 	//			} // with Credentials (AuditDB)
