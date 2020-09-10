@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      //label 'datical'
+      label 'sample'
       customWorkspace "/var/lib/jenkins/workspace/epod_datical_master/1.Package-${BUILD_NUMBER}/"
     }
 
