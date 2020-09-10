@@ -1,0 +1,2 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:appdba="http://www.datical.net/xml/ns/appdba" xmlns:datical="http://www.datical.net/xml/ns/datical" xmlns:storedlogic="http://www.datical.net/xml/ns/storedlogic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" datical:lastEdited="2020-09-04T17:32:51.633Z" logicalFilePath="Changelog/changelog.xml" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd"/>
