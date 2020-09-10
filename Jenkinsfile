@@ -7,7 +7,7 @@ pipeline {
   }
  
   environment {
-	GITURL="ssh://git@github.com:duckback00/"
+	GITURL="ssh://git@github.com:duckback00"
 	GIT_DATICAL_REPO="epod_datical"
 	GIT_SQL_REPO="epod_sql"
 	PROJ_DDB="epod_datical"
