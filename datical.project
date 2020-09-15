@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbproject="http://datical.com/db/project/1.0" name="epod" storedLogicExternal="true" deployThreshold="stopOnError" projectsId="b7aff6e8-e998-4e7b-8dc6-f75e35509045" runtimeCredentials="false" multiSchema="true" dbSchemaDefinition="project" schemaSelectionStep="dev" trackingSchema="DELPHIXDB" enableRowCount="disabled" multiCatalog="false" lastEdited="2020-09-04T17:36:19.001Z">
   <dbDefs xsi:type="dbproject:OracleDbDef" name="prod" driver="oracle.jdbc.OracleDriver" hostname="172.16.129.133" port="1521" username="delphixdb" password="ZGVscGhpeGRi" contexts="prod" labels="current" dbDefsId="696f999f-c4b5-363c-88aa-cfa41cadb96c" sid="orcl" enableCompression="false" rowsPerBatch="10000"/>
-  <dbDefs xsi:type="dbproject:OracleDbDef" name="dev" driver="oracle.jdbc.OracleDriver" hostname="172.16.129.133" port="1521" username="delphixdb" password="ZGVscGhpeGRi" contexts="dev" dbDefsId="696f999f-c4b5-363c-88aa-cfa41cadb96c" serviceName="VBITT" enableCompression="false" rowsPerBatch="10000" useWallet="false"/>
+  <dbDefs xsi:type="dbproject:OracleDbDef" name="VBITT" driver="oracle.jdbc.OracleDriver" hostname="172.16.129.133" port="1521" username="delphixdb" password="ZGVscGhpeGRi" contexts="dev" dbDefsId="696f999f-c4b5-363c-88aa-cfa41cadb96c" serviceName="VBITT" enableCompression="false" rowsPerBatch="10000" useWallet="false"/>
   <plans name="current" databaseDefs="//@dbDefs[name='dev'] //@dbDefs[name='prod']" plansId="1a4d8869-7880-3389-855b-64b96e73de84"/>
   <changelog href="Changelog/changelog.xml#//@databaseChangeLog"/>
   <schemas name="DELPHIXDB"/>
