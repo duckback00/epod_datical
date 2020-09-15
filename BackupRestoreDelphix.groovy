@@ -113,7 +113,8 @@ class BackupRestoreDelphix implements BackupRestore {
         "-type", "${delphixDBType}",
         "-configfile", "./dxtools.conf"
       ]
-
+      logger.printInfo "Snapshot Options:"+snapshotOptions
+	    
       // Build command list:
       def commands = processBuilder.command()
       commands.clear()
