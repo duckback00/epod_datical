@@ -107,9 +107,10 @@ class BackupRestoreDelphix implements BackupRestore {
       }
       def delphixEngineName = "delphix-vm-n-6"
       def delphixDBType = "vdb"
+//        "-name", dbDef.name,
       String[] snapshotOptions = [
         "-engine", "${delphixEngineName}",
-        "-name", dbDef.name,
+        "-name", dbDef.serviceName,
         "-type", "${delphixDBType}",
         "-configfile", "./dxtools.conf"
       ]
@@ -215,9 +216,10 @@ class BackupRestoreDelphix implements BackupRestore {
 
       def delphixEngineName = "delphix-vm-n-6"
       def delphixDBType = "vdb"
+//          "-name" , dbDef.name,
       String[] rewindOptions = [
           "-engine", "${delphixEngineName}",
-          "-name" , dbDef.name,
+          "-name", dbDef.serviceName,	  
           "-type" ,"${delphixDBType}",
           "-configfile", "./dxtools.conf"
       ]
