@@ -1,2 +1,7 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:appdba="http://www.datical.net/xml/ns/appdba" xmlns:datical="http://www.datical.net/xml/ns/datical" xmlns:storedlogic="http://www.datical.net/xml/ns/storedlogic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" datical:lastEdited="2020-09-04T17:32:51.633Z" logicalFilePath="Changelog/changelog.xml" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd"/>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:appdba="http://www.datical.net/xml/ns/appdba" xmlns:datical="http://www.datical.net/xml/ns/datical" xmlns:storedlogic="http://www.datical.net/xml/ns/storedlogic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" datical:lastEdited="2020-09-15T15:53:22.243Z" logicalFilePath="Changelog/changelog.xml" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet appdba:scriptChecksum="8cbe7e6f64b709e73e1cd61563cfe288" author="Alan Bitterman" created="2020-09-15 11:53-0400" datical:origFileName="test.sql" datical:origFilePath="sql_direct" datical:rerunnable="true" datical:version="1" datical:versionStrategy="DEPLOY_ALL" id="20200915115319999_test" labels="25,test.sql">
+        <appdba:sqlplus disableSqlParser="true" enableRollbackOnError="true" path="sql/20200915115319999_test.sql" removeSpools="First"/>
+        <comment>Add files via upload</comment>
+    </changeSet>
+</databaseChangeLog>
