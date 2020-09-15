@@ -2,7 +2,8 @@ package com.datical.hammer.scripts.backup
 
 import com.datical.db.project.DatabaseDef
 import com.datical.db.project.Project
-import com.datical.hammer.repl.DaticalDBHelper
+///import com.datical.hammer.repl.DaticalDBHelper
+import com.datical.hammer.repl.command.DaticalDBHelper
 import com.datical.hammer.scripts.backup.BackupRestore
 import com.datical.hammer.scripts.util.PackagerProperties
 import com.datical.hammer.scripts.util.ScriptLogging
