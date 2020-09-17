@@ -44,10 +44,5 @@ pipeline {
             ORACLE_HOME = '/opt/oracle/product/12.1/client'
             PATH = "$PATH:/home/delphix_os/DaticalDB/repl:$ORACLE_HOME/bin"
           }
-          post {
-            always {
-              archiveArtifacts '**/daticaldb.log, **/Reports/**, **/Logs/**, **/Snapshots/** ,**/*.zip'
-            }
 
-          }
         }
