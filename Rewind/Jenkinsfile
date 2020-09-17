@@ -16,7 +16,7 @@ pipeline {
       }
     }
 
-    stage('Delete') {
+    stage('Rewind') {
       steps {
         sh '''
 					  { set +x; } 2>/dev/null
