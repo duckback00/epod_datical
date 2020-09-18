@@ -1,0 +1,56 @@
+pipeline {
+  agent any
+  stages {
+    stage('Precheck') {
+      steps {
+        sh '''
+				echo ORACLE_HOME=${ORACLE_HOME}
+				echo PATH=${PATH}
+				whoami
+				which git
+				#which expdp
+				git --version
+				git config --global user.email "jenkins@datical.com"
+				git config --global user.name "jenkins"
+			'''
+      }
+    }
+
+    stage('Discover') {
+      steps {
+        sh '''
+					  { set +x; } 2>/dev/null
+											  
+					      ###cd ${PROJ_DDB}
+					      PATH=/home/delphix_os/DaticalDB/repl:${PATH}
+                /opt/datical/dxtoolkit2/dx_create_env -d delphix-vm-n-6 -envname 172.16.129.133 -envtype unix -host 172.16.129.133 -username delphix -authtype password -password delphix -toolkitdir "/var/opt/delphix/toolkit"
+                                 '''
+      }
+    }
+   stage('Ingest') {
+      steps {
+        sh '''
+					  { set +x; } 2>/dev/null
+											  
+					      ###cd ${PROJ_DDB}
+					      PATH=/home/delphix_os/DaticalDB/repl:${PATH}
+                /opt/datical/dxtoolkit2/dx_ctl_dsource -d delphix-vm-n-6 -dever 5.3 -type oracle -sourcename orcl -sourceinst /u01/app/oracle/product/11.2.0.4/db_1 -sourceenv 172.16.129.133 -source_os_user delphix -dbuser delphixdb -password delphixdb -group Oracle_Source -dsourcename orcl -action create     
+                                 '''
+      }
+    }
+
+
+  }
+  environment {
+    GITURL = 'git@github.com:duckback00'
+    GIT_DATICAL_REPO = 'epod_datical'
+    GIT_SQL_REPO = 'epod_sql'
+    PROJ_DDB = 'epod_datical'
+    PROJ_SQL = 'epod_sql'
+    DATICAL_PIPELINE = 'current'
+    BRANCH = 'current'
+    RELEASE_LABEL = "${BUILD_NUMBER}"
+    ORACLE_HOME = '/opt/oracle/product/12.1/client'
+    PATH = "$PATH:/home/delphix_os/DaticalDB/repl:$ORACLE_HOME/bin"
+  }
+}
