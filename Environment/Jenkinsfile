@@ -27,7 +27,8 @@ pipeline {
                                  '''
       }
     }
-   stage('Ingest') {
+
+    stage('Ingest') {
       steps {
         sh '''
 					  { set +x; } 2>/dev/null
@@ -38,7 +39,6 @@ pipeline {
                                  '''
       }
     }
-
 
   }
   environment {
