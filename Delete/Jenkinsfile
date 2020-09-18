@@ -23,7 +23,9 @@ pipeline {
 											  
 					      ###cd ${PROJ_DDB}
 					      PATH=/home/delphix_os/DaticalDB/repl:${PATH}
-                /opt/datical/dxtoolkit2/dx_remove_db -engine delphix-vm-n-6 -name orcl_ref -skip         
+                                              /opt/datical/dxtoolkit2/dx_remove_db -engine delphix-vm-n-6 -name orcl_ref -skip 
+					      /opt/datical/dxtoolkit2/dx_remove_db -engine delphix-vm-n-6 -name orcl -skip 
+					      /opt/datical/dxtoolkit2/dx_remove_env -engine delphix-vm-n-6 -name 172.16.129.133 -skip 
 
                                  '''
       }
