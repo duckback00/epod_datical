@@ -55,7 +55,7 @@ pipeline {
 
     stage('Provision') {
       parallel {
-        stage('Provision') {
+        stage('RefDB') {
           steps {
             sh '''
 			{ set -x; } 2>/dev/null
