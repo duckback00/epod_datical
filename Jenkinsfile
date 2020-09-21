@@ -82,6 +82,7 @@ pipeline {
 				    echo "err logic goes here ..."
 				else 
 				    echo "packager approved, deploy code ..."
+				    hammer deploy dev
 				fi
 
 	   		'''
