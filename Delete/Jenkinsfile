@@ -23,13 +23,13 @@ pipeline {
 								  
 			###cd ${PROJ_DDB}
 			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
-			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json  | jq '.results[] | select(.Database == "orcl_ref")'`
+			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json  | jq \'.results[] | select(.Database == "orcl_ref")\'`
 			echo "Results: ${RESULTS}"
 			if [[ "${RESULTS}" != "" ]]
                         then
 				/opt/datical/dxtoolkit2/dx_remove_db -engine delphix-vm-n-6 -name orcl_ref -skip 
 			fi
-			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json  | jq '.results[] | select(.Database == "orcl")'`
+			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json  | jq \'.results[] | select(.Database == "orcl")\'`
 			echo "Results: ${RESULTS}"
 			if [[ "${RESULTS}" != "" ]]
                         then
