@@ -61,7 +61,7 @@ pipeline {
               }
             }
 
-            stage('Discover') {
+            stage('Environment') {
               steps {
                 sh '''
 			{ set +x; } 2>dev/null
