@@ -113,7 +113,7 @@ pipeline {
                         then
 				/opt/datical/dxtoolkit2/dx_provision_vdb -engine delphix-vm-n-6 -type oracle -group Oracle_Targets -sourcename orcl -targetname orcl_ref -environment "172.16.129.133" -envinst "/u01/app/oracle/product/11.2.0.4/db_1" -template 200M -dbname orcl_ref -mntpoint /mnt/provision -autostart yes -configureclone "/opt/datical/dxtoolkit2/configureClone.sh"          
 			fi
-                       '''
+                     '''
 	          }
 	        }
 
@@ -130,7 +130,7 @@ pipeline {
                         then
 				/opt/datical/dxtoolkit2/dx_provision_vdb -engine delphix-vm-n-6 -type oracle -group Oracle_Targets -sourcename orcl -targetname VBITT -environment "172.16.129.133" -envinst "/u01/app/oracle/product/11.2.0.4/db_1" -template 200M -dbname VBITT -mntpoint /mnt/provision -autostart yes 
 			fi   
-                       '''
+                    '''
 	          }
 	        }
 	      }
@@ -139,43 +139,47 @@ pipeline {
             stage('Packager') {
               steps {
                 sh '''
-				{ set +x; } 2>/dev/null
+			{ set +x; } 2>/dev/null
 											  
-				cd ${PROJ_DDB}
-				PATH=/home/delphix_os/DaticalDB/repl:${PATH}
-				echo
-				echo "==== Running - hammer version ===="
-				hammer show version
+			cd ${PROJ_DDB}
+			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
+			echo
+			echo "==== Running - hammer version ===="
+			hammer show version
 			 
-				# invoke Datical DB\'s Deployment Packager
-				echo "==== Running Deployment Packager ===="
+			# invoke Datical DB\'s Deployment Packager
+			echo "==== Running Deployment Packager ===="
 
-				hammer groovy deployPackager.groovy pipeline=${DATICAL_PIPELINE} scm=true labels="${DATICAL_PIPELINE}"
-				rc=$?
-				if [[ ${rc} -ne 0 ]] 
-				then
-				    echo "err logic goes here ..."
-				else 
-				    echo "packager approved, deploy code ..."
-				fi
+			hammer groovy deployPackager.groovy pipeline=${DATICAL_PIPELINE} scm=true labels="${DATICAL_PIPELINE}"
+			rc=$?
+			if [[ ${rc} -ne 0 ]] 
+			then
+			    echo "err logic goes here ..."
+			else 
+			    echo "packager approved, deploy code ..."
+			fi
 
-	   		'''
+	   	'''
               }
             }
 
             stage('Deployment') {
               steps {
                 sh '''
-				{ set +x; } 2>/dev/null
+			{ set +x; } 2>/dev/null
 											  
-				cd ${PROJ_DDB}
-				PATH=/home/delphix_os/DaticalDB/repl:${PATH}
-				echo
-				echo "==== Running - hammer deploy ===="
-
+			cd ${PROJ_DDB}
+			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
+			echo
+			echo "==== Running - hammer deploy ===="
+			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json | jq ".results[] | select(.Database == \\"VBITT\\")"`
+			echo "Dev Database Exist Results: ${RESULTS}"
+			if [[ "${RESULTS}" == "" ]]
+                        then
 			        hammer deploy dev --labels="${DATICAL_PIPELINE}"
+			fi
 
-	   		'''
+	   	'''
               }
             }
 
