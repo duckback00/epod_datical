@@ -33,33 +33,26 @@ pipeline {
 				/opt/datical/dxtoolkit2/dx_remove_db -engine delphix-vm-n-6 -name orcl_ref -skip 
 			fi
 
-			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json  | jq \'.results[] | select(.Database == "VBITT")\'`
-			echo "Results: ${RESULTS}"
-			if [[ "${RESULTS}" != "" ]]
-                        then
-				/opt/datical/dxtoolkit2/dx_remove_db -engine delphix-vm-n-6 -name VBITT -skip 
-			fi
-			
-			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json  | jq \'.results[] | select(.Database == "orcl")\'`
-			echo "Results: ${RESULTS}"
-			if [[ "${RESULTS}" != "" ]]
-                        then
-				/opt/datical/dxtoolkit2/dx_remove_db -engine delphix-vm-n-6 -name orcl -skip 
-			fi
-			RESULTS=`/opt/datical/dxtoolkit2/dx_get_env -engine delphix-vm-n-6 -name 172.16.129.133 --format json | jq ".results[] | length"`
-			echo "Results: ${RESULTS}"
-			if [[ "${RESULTS}" != "" ]]
-                        then				
-				/opt/datical/dxtoolkit2/dx_remove_env -engine delphix-vm-n-6 -name 172.16.129.133 -skip 
-			fi
-
                     '''
           }
         }
 
         stage('Delete DevDB') {
           steps {
-            echo 'VBITT'
+            sh '''
+			{ set +x; } 2>/dev/null
+								  
+			###cd ${PROJ_DDB}
+			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
+
+			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json  | jq \'.results[] | select(.Database == "VBITT")\'`
+			echo "Results: ${RESULTS}"
+			if [[ "${RESULTS}" != "" ]]
+                        then
+				/opt/datical/dxtoolkit2/dx_remove_db -engine delphix-vm-n-6 -name VBITT -skip 
+			fi
+
+                    '''
           }
         }
 
@@ -68,13 +61,39 @@ pipeline {
 
     stage('Delete dSource') {
       steps {
-        echo 'dSource'
+            sh '''
+			{ set +x; } 2>/dev/null
+								  
+			###cd ${PROJ_DDB}
+			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
+
+			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json  | jq \'.results[] | select(.Database == "orcl")\'`
+			echo "Results: ${RESULTS}"
+			if [[ "${RESULTS}" != "" ]]
+                        then
+				/opt/datical/dxtoolkit2/dx_remove_db -engine delphix-vm-n-6 -name orcl -skip 
+			fi
+
+                    '''
       }
     }
 
     stage('Delete Env') {
       steps {
-        echo 'Env'
+            sh '''
+			{ set +x; } 2>/dev/null
+								  
+			###cd ${PROJ_DDB}
+			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
+			
+			RESULTS=`/opt/datical/dxtoolkit2/dx_get_env -engine delphix-vm-n-6 -name 172.16.129.133 --format json | jq ".results[] | length"`
+			echo "Results: ${RESULTS}"
+			if [[ "${RESULTS}" != "" ]]
+                        then				
+				/opt/datical/dxtoolkit2/dx_remove_env -engine delphix-vm-n-6 -name 172.16.129.133 -skip 
+			fi
+
+                    '''
       }
     }
 
