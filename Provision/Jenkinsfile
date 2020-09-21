@@ -42,7 +42,7 @@ pipeline {
                    	#/opt/datical/dxtoolkit2/dx_ctl_dsource -d delphix-vm-n-6 -dever 5.3 -type oracle -sourcename orcl -sourceinst /u01/app/oracle/product/11.2.0.4/db_1 -sourceenv 172.16.129.133 -source_os_user delphix -dbuser delphixdb -password delphixdb -group Oracle_Source -dsourcename orcl -action create     
 			###cd ${PROJ_DDB}
 			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
-			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 -name orcl --format json | jq ".results[] | select(.Database == ""orcl"")"`
+			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 -name orcl --format json | jq ".results[] | select(.Database == \\"orcl\\")"`
 			echo "Ingest Results: ${RESULTS}"
 			if [[ "${RESULTS}" == "" ]]
 			then
@@ -59,7 +59,7 @@ pipeline {
 											  
 			###cd ${PROJ_DDB}
 			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
-			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 -name orcl_ref --format json | jq ".results[] | select(.Database == ""orcl_ref"")"`
+			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 -name orcl_ref --format json | jq ".results[] | select(.Database == \\"orcl_ref\\")"`
 			echo "Provision Results: ${RESULTS}"
 			if [[ "${RESULTS}" == "" ]]
                         then
