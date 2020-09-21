@@ -76,6 +76,11 @@ pipeline {
 				echo "==== Running Deployment Packager ===="
 
 				hammer groovy deployPackager.groovy pipeline=${DATICAL_PIPELINE} scm=true labels="${RELEASE_LABEL}"
+				rc=$?
+				if [[ ${rc} -ne 0 ]] 
+				then
+				    echo "err logic goes here"
+				fi
 
 	   		'''
               }
