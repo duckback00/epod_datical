@@ -75,14 +75,14 @@ pipeline {
 				# invoke Datical DB\'s Deployment Packager
 				echo "==== Running Deployment Packager ===="
 
-				hammer groovy deployPackager.groovy pipeline=${DATICAL_PIPELINE} scm=true labels="${RELEASE_LABEL}"
+				hammer groovy deployPackager.groovy pipeline=${DATICAL_PIPELINE} scm=true labels="${DATICAL_PIPELINE}"
 				rc=$?
 				if [[ ${rc} -ne 0 ]] 
 				then
 				    echo "err logic goes here ..."
 				else 
 				    echo "packager approved, deploy code ..."
-				    hammer deploy dev --labels="${RELEASE_LABEL}"
+				    hammer deploy dev --labels="${DATICAL_PIPELINE}"
 				fi
 
 	   		'''
