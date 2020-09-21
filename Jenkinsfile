@@ -20,25 +20,25 @@ pipeline {
       steps {
         deleteDir()
         checkout([
-                                                                                                                                                                                                $class: 'GitSCM',
-                                                                                                                                                                                                branches: [[name: '*/master']],
-                                                                                                                                                                                                doGenerateSubmoduleConfigurations: false,
-                                                                                                                                                                                                extensions: [
-                                                                                                                                                                                                                                       [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_DDB}"],
-                                                                                                                                                                                                                                       [$class: 'LocalBranch', localBranch: 'master']],
-                                                                                                                                                                                                                                       submoduleCfg: [],
-                                                                                                                                                                                                                                       userRemoteConfigs: [[url: "${GITURL}/${GIT_DATICAL_REPO}.git"]]
-                                                                                                                                                                                                                                ])
+                $class: 'GitSCM',
+                branches: [[name: '*/master']],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [
+                     [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_DDB}"],
+                     [$class: 'LocalBranch', localBranch: 'master']],
+                     submoduleCfg: [],
+                     userRemoteConfigs: [[url: "${GITURL}/${GIT_DATICAL_REPO}.git"]]
+                 ])
             checkout([
-                                                                                                                                                                                                                                                                $class: 'GitSCM',
-                                                                                                                                                                                                                                                                branches: [[name: "$BRANCH"]],
-                                                                                                                                                                                                                                                                doGenerateSubmoduleConfigurations: false,
-                                                                                                                                                                                                                                                                extensions: [
-                                                                                                                                                                                                                                                                                                	[$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_SQL}"], 
-                                                                                                                                                                                                                                                                                                	[$class: 'LocalBranch', localBranch: "${BRANCH}"]],
-                                                                                                                                                                                                                                                                                                        submoduleCfg: [],
-                                                                                                                                                                                                                                                                                                        userRemoteConfigs: [[url: "${GITURL}/${GIT_SQL_REPO}.git"]]
-                                                                                                                                                                                                                                                                                                ])
+                 $class: 'GitSCM',
+                 branches: [[name: "$BRANCH"]],
+                 doGenerateSubmoduleConfigurations: false,
+                 extensions: [
+                 	[$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_SQL}"], 
+                        [$class: 'LocalBranch', localBranch: "${BRANCH}"]],
+                        submoduleCfg: [],
+                        userRemoteConfigs: [[url: "${GITURL}/${GIT_SQL_REPO}.git"]]
+                 ])
               }
             }
 
@@ -82,13 +82,27 @@ pipeline {
 				    echo "err logic goes here ..."
 				else 
 				    echo "packager approved, deploy code ..."
-				    hammer deploy dev --labels="${DATICAL_PIPELINE}"
 				fi
 
 	   		'''
               }
-            }
+           }
+           stage('Deployment') {
+              steps {
+                sh '''
+				{ set +x; } 2>/dev/null
+											  
+				cd ${PROJ_DDB}
+				PATH=/home/delphix_os/DaticalDB/repl:${PATH}
+				echo
+				echo "==== Running - hammer deploy ===="
 
+			        hammer deploy dev --labels="${DATICAL_PIPELINE}"
+
+	   		'''
+              }
+           }
+	  
           }
           environment {
             GITURL = 'git@github.com:duckback00'
