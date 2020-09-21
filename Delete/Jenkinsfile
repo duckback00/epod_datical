@@ -61,7 +61,7 @@ pipeline {
 
     stage('Delete dSource') {
       steps {
-            sh '''
+        sh '''
 			{ set +x; } 2>/dev/null
 								  
 			###cd ${PROJ_DDB}
@@ -80,7 +80,7 @@ pipeline {
 
     stage('Delete Env') {
       steps {
-            sh '''
+        sh '''
 			{ set +x; } 2>/dev/null
 								  
 			###cd ${PROJ_DDB}
