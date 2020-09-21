@@ -42,9 +42,8 @@ pipeline {
 			###cd ${PROJ_DDB}
 			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
 			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 -name orcl --format json | jq length 2>/dev/null`
-			echo "Results: ${RESULTS}"
-			if [[ "${RESULTS}" == "" ]]
-                        then
+			#echo "Results: ${RESULTS}"
+			if [[ "${RESULTS}" == "" ]];then
 				/opt/datical/dxtoolkit2/link_oracle_i.sh orcl Oracle_Source 172.16.129.133 orcl delphixdb delphixdb
                         	#/opt/datical/dxtoolkit2/dx_ctl_dsource -d delphix-vm-n-6 -dever 5.3 -type oracle -sourcename orcl -sourceinst /u01/app/oracle/product/11.2.0.4/db_1 -sourceenv 172.16.129.133 -source_os_user delphix -dbuser delphixdb -password delphixdb -group Oracle_Source -dsourcename orcl -action create     
 			fi
