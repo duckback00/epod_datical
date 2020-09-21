@@ -93,7 +93,7 @@ pipeline {
 			if [[ "${RESULTS}" == "" ]]
 			then
 				/opt/datical/dxtoolkit2/link_oracle_i.sh orcl Oracle_Source 172.16.129.133 orcl delphixdb delphixdb
-			fi
+			fidx_snapshot_db
                     '''
               }
             }
@@ -185,7 +185,7 @@ pipeline {
 				    echo "err, rewinding VDB ..."
 				    /opt/datical/dxtoolkit2/dx_rewind_db -engine delphix-vm-n-6 -name VBITT 
 				else 
-				    echo "packager code deployes ..."
+				    echo "packager code deployed successfully ..."
 				fi	
 			fi
 
