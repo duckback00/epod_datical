@@ -16,9 +16,11 @@ pipeline {
       }
     }
 
-    stage('Delete') {
-      steps {
-        sh '''
+    stage('Delete VDBs') {
+      parallel {
+        stage('Delete RefDB') {
+          steps {
+            sh '''
 			{ set +x; } 2>/dev/null
 								  
 			###cd ${PROJ_DDB}
@@ -52,6 +54,27 @@ pipeline {
 			fi
 
                     '''
+          }
+        }
+
+        stage('Delete DevDB') {
+          steps {
+            echo 'VBITT'
+          }
+        }
+
+      }
+    }
+
+    stage('Delete dSource') {
+      steps {
+        echo 'dSource'
+      }
+    }
+
+    stage('Delete Env') {
+      steps {
+        echo 'Env'
       }
     }
 
