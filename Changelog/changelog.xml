@@ -1,5 +1,5 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:appdba="http://www.datical.net/xml/ns/appdba" xmlns:datical="http://www.datical.net/xml/ns/datical" xmlns:storedlogic="http://www.datical.net/xml/ns/storedlogic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" datical:lastEdited="2020-09-21T17:30:11.816Z" logicalFilePath="Changelog/changelog.xml" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:appdba="http://www.datical.net/xml/ns/appdba" xmlns:datical="http://www.datical.net/xml/ns/datical" xmlns:storedlogic="http://www.datical.net/xml/ns/storedlogic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" datical:lastEdited="2020-09-21T17:53:44.644Z" logicalFilePath="Changelog/changelog.xml" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <changeSet appdba:scriptChecksum="c7047925c48789b1315741b44c53783d" author="Alan Bitterman" created="2020-09-21 10:00-0400" datical:origFileName="notes.sql" datical:origFilePath="sql_direct" datical:rerunnable="true" datical:version="1" datical:versionStrategy="DEPLOY_ALL" id="20200921100008388_notes" labels="38,notes.sql,current">
         <appdba:sqlplus disableSqlParser="true" enableRollbackOnError="true" path="sql/20200921100008388_notes.sql" removeSpools="First"/>
         <comment>Add files via upload</comment>
@@ -14,6 +14,10 @@
     </changeSet>
     <changeSet appdba:scriptChecksum="51b1377282d57f39c3cf008d94cb02e6" author="Alan Bitterman" created="2020-09-21 13:30-0400" datical:origFileName="notes2.sql" datical:origFilePath="sql_direct" datical:rerunnable="true" datical:version="2" datical:versionStrategy="DEPLOY_ALL" id="20200921133006246_notes2" labels="current,notes2.sql">
         <appdba:sqlplus disableSqlParser="true" enableRollbackOnError="true" path="sql/20200921133006246_notes2.sql" removeSpools="First"/>
+        <comment>Update notes2.sql</comment>
+    </changeSet>
+    <changeSet appdba:scriptChecksum="8b1aea68e609d78b5003f9f956c9fa24" author="Alan Bitterman" created="2020-09-21 13:53-0400" datical:origFileName="notes2.sql" datical:origFilePath="sql_direct" datical:rerunnable="true" datical:version="3" datical:versionStrategy="DEPLOY_ALL" id="20200921135339977_notes2" labels="current,notes2.sql">
+        <appdba:sqlplus disableSqlParser="true" enableRollbackOnError="true" path="sql/20200921135339977_notes2.sql" removeSpools="First"/>
         <comment>Update notes2.sql</comment>
     </changeSet>
 </databaseChangeLog>
