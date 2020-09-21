@@ -79,7 +79,9 @@ pipeline {
 				rc=$?
 				if [[ ${rc} -ne 0 ]] 
 				then
-				    echo "err logic goes here"
+				    echo "err logic goes here ..."
+				else 
+				    echo "packager approved, deploy code ..."
 				fi
 
 	   		'''
