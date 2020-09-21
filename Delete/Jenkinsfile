@@ -19,7 +19,7 @@ pipeline {
     stage('Delete') {
       steps {
         sh '''
-			{ set +x; } 2>/dev/null
+			{ set -x; } 2>1   ###/dev/null
 								  
 			###cd ${PROJ_DDB}
 			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
