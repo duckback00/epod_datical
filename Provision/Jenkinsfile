@@ -54,8 +54,10 @@ pipeline {
     }
 
     stage('Provision') {
-      steps {
-        sh '''
+      parallel {
+        stage('Provision') {
+          steps {
+            sh '''
 			{ set -x; } 2>/dev/null
 											  
 			###cd ${PROJ_DDB}
@@ -76,6 +78,15 @@ pipeline {
 			fi   
 
                        '''
+          }
+        }
+
+        stage('') {
+          steps {
+            echo 'VBITT'
+          }
+        }
+
       }
     }
 
