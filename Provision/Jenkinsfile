@@ -37,7 +37,7 @@ pipeline {
     stage('Ingest') {
       steps {
         sh '''
-			{ set +x; } 2>/dev/null
+			{ set -x; } 2>/dev/null
 											  
 			###cd ${PROJ_DDB}
 			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
@@ -55,7 +55,7 @@ pipeline {
     stage('Provision') {
       steps {
         sh '''
-			{ set +x; } 2>/dev/null
+			{ set -x; } 2>/dev/null
 											  
 			###cd ${PROJ_DDB}
 			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
