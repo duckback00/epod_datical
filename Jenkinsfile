@@ -93,7 +93,7 @@ pipeline {
 			if [[ "${RESULTS}" == "" ]]
 			then
 				/opt/datical/dxtoolkit2/link_oracle_i.sh orcl Oracle_Source 172.16.129.133 orcl delphixdb delphixdb
-			fidx_snapshot_db
+			fi
                     '''
               }
             }
