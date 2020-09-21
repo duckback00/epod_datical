@@ -175,7 +175,7 @@ pipeline {
 			echo "==== Running - hammer deploy ===="
 			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json | jq ".results[] | select(.Database == \\"VBITT\\")"`
 			echo "Dev Database Exist Results: ${RESULTS}"
-			if [[ "${RESULTS}" == "" ]]
+			if [[ "${RESULTS}" != "" ]]
                         then
 			        hammer deploy dev --labels="${DATICAL_PIPELINE}"
 			fi
