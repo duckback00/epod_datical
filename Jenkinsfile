@@ -20,25 +20,25 @@ pipeline {
       steps {
         deleteDir()
         checkout([
-                          $class: 'GitSCM',
-                          branches: [[name: '*/master']],
-                          doGenerateSubmoduleConfigurations: false,
-                          extensions: [
-                                 [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_DDB}"],
-                                 [$class: 'LocalBranch', localBranch: 'master']],
-                                 submoduleCfg: [],
-                                 userRemoteConfigs: [[url: "${GITURL}/${GIT_DATICAL_REPO}.git"]]
-                             ])
+                                    $class: 'GitSCM',
+                                    branches: [[name: '*/master']],
+                                    doGenerateSubmoduleConfigurations: false,
+                                    extensions: [
+                                             [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_DDB}"],
+                                             [$class: 'LocalBranch', localBranch: 'master']],
+                                             submoduleCfg: [],
+                                             userRemoteConfigs: [[url: "${GITURL}/${GIT_DATICAL_REPO}.git"]]
+                                         ])
             checkout([
-                               $class: 'GitSCM',
-                               branches: [[name: "$BRANCH"]],
-                               doGenerateSubmoduleConfigurations: false,
-                               extensions: [
-                                 	[$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_SQL}"], 
-                                        [$class: 'LocalBranch', localBranch: "${BRANCH}"]],
-                                        submoduleCfg: [],
-                                        userRemoteConfigs: [[url: "${GITURL}/${GIT_SQL_REPO}.git"]]
-                                 ])
+                                             $class: 'GitSCM',
+                                             branches: [[name: "$BRANCH"]],
+                                             doGenerateSubmoduleConfigurations: false,
+                                             extensions: [
+                                                 	[$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_SQL}"], 
+                                                        [$class: 'LocalBranch', localBranch: "${BRANCH}"]],
+                                                        submoduleCfg: [],
+                                                        userRemoteConfigs: [[url: "${GITURL}/${GIT_SQL_REPO}.git"]]
+                                                 ])
               }
             }
 
@@ -61,9 +61,9 @@ pipeline {
               }
             }
 
-	   stage('Discover') {
-	      steps {
-	        sh '''
+            stage('Discover') {
+              steps {
+                sh '''
 			{ set +x; } 2>dev/null
 											  
 			###cd ${PROJ_DDB}
@@ -76,12 +76,12 @@ pipeline {
                       		/opt/datical/dxtoolkit2/dx_create_env -d delphix-vm-n-6 -envname 172.16.129.133 -envtype unix -host 172.16.129.133 -username delphix -authtype password -password delphix -toolkitdir "/var/opt/delphix/toolkit"
 			fi
                     '''
- 	     }
- 	   }
+              }
+            }
 
-	    stage('Ingest') {
-	      steps {
-	        sh '''
+            stage('Ingest') {
+              steps {
+                sh '''
 			{ set -x; } 2>/dev/null
 											  
                    	#/opt/datical/dxtoolkit2/dx_ctl_dsource -d delphix-vm-n-6 -dever 5.3 -type oracle -sourcename orcl -sourceinst /u01/app/oracle/product/11.2.0.4/db_1 -sourceenv 172.16.129.133 -source_os_user delphix -dbuser delphixdb -password delphixdb -group Oracle_Source -dsourcename orcl -action create     
@@ -95,14 +95,14 @@ pipeline {
 				/opt/datical/dxtoolkit2/link_oracle_i.sh orcl Oracle_Source 172.16.129.133 orcl delphixdb delphixdb
 			fi
                     '''
-	      }
-	    }
+              }
+            }
 
-	    stage('Provision') {
-	      parallel {
-	        stage('RefDB') {
-	          steps {
-	            sh '''
+            stage('Provision') {
+              parallel {
+                stage('RefDB') {
+                  steps {
+                    sh '''
 			{ set -x; } 2>/dev/null
 											  
 			###cd ${PROJ_DDB}
@@ -114,12 +114,12 @@ pipeline {
 				/opt/datical/dxtoolkit2/dx_provision_vdb -engine delphix-vm-n-6 -type oracle -group Oracle_Targets -sourcename orcl -targetname orcl_ref -environment "172.16.129.133" -envinst "/u01/app/oracle/product/11.2.0.4/db_1" -template 200M -dbname orcl_ref -mntpoint /mnt/provision -autostart yes -configureclone "/opt/datical/dxtoolkit2/configureClone.sh"          
 			fi
                      '''
-	          }
-	        }
+                  }
+                }
 
-	        stage('DevDB') {
-	          steps {
-	           sh '''
+                stage('DevDB') {
+                  steps {
+                    sh '''
 			{ set -x; } 2>/dev/null
 											  
 			###cd ${PROJ_DDB}
@@ -131,11 +131,12 @@ pipeline {
 				/opt/datical/dxtoolkit2/dx_provision_vdb -engine delphix-vm-n-6 -type oracle -group Oracle_Targets -sourcename orcl -targetname VBITT -environment "172.16.129.133" -envinst "/u01/app/oracle/product/11.2.0.4/db_1" -template 200M -dbname VBITT -mntpoint /mnt/provision -autostart yes 
 			fi   
                     '''
-	          }
-	        }
-	      }
-	    }
-	  
+                  }
+                }
+
+              }
+            }
+
             stage('Packager') {
               steps {
                 sh '''
