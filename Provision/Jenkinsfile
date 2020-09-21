@@ -81,7 +81,7 @@ pipeline {
           }
         }
 
-        stage('') {
+        stage('DevDB') {
           steps {
             echo 'VBITT'
           }
