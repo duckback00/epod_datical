@@ -177,7 +177,16 @@ pipeline {
 			echo "Dev Database Exist Results: ${RESULTS}"
 			if [[ "${RESULTS}" != "" ]]
                         then
+			        /opt/datical/dxtoolkit2/dx_snapshot_db -engine delphix-vm-n-6 -name VBITT 
 			        hammer deploy dev --labels="${DATICAL_PIPELINE}"
+				rc=$?
+				if [[ ${rc} -ne 0 ]] 
+				then
+				    echo "err, rewinding VDB ..."
+				    /opt/datical/dxtoolkit2/dx_rewind_db -engine delphix-vm-n-6 -name VBITT 
+				else 
+				    echo "packager code deployes ..."
+				fi	
 			fi
 
 	   	'''
