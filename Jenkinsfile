@@ -20,29 +20,29 @@ pipeline {
       steps {
         deleteDir()
         checkout([
-                                                            $class: 'GitSCM',
-                                                            branches: [[name: '*/master']],
-                                                            doGenerateSubmoduleConfigurations: false,
-                                                            extensions: [
-                                                                       [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_DDB}"],
-                                                                       [$class: 'LocalBranch', localBranch: 'master']],
-                                                                       submoduleCfg: [],
-                                                                       userRemoteConfigs: [[url: "${GITURL}/${GIT_DATICAL_REPO}.git"]]
-                                                                   ])
-            checkout([
-                                                                         $class: 'GitSCM',
-                                                                         branches: [[name: "$BRANCH"]],
-                                                                         doGenerateSubmoduleConfigurations: false,
-                                                                         extensions: [
-                                                                                     [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_SQL}"], 
-                                                                                     [$class: 'LocalBranch', localBranch: "${BRANCH}"]],
-                                                                                     submoduleCfg: [],
-                                                                                     userRemoteConfigs: [[url: "${GITURL}/${GIT_SQL_REPO}.git"]]
-                                                                               ])
-              }
-            }
+		$class: 'GitSCM',
+		branches: [[name: '*/master']],
+		doGenerateSubmoduleConfigurations: false,
+		extensions: [
+			[$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_DDB}"],
+			[$class: 'LocalBranch', localBranch: 'master']],
+		submoduleCfg: [],
+		userRemoteConfigs: [[url: "${GITURL}/${GIT_DATICAL_REPO}.git"]]
+	])
+	checkout([
+		$class: 'GitSCM',
+		branches: [[name: "$BRANCH"]],
+		doGenerateSubmoduleConfigurations: false,
+		extensions: [
+			[$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_SQL}"], 
+			[$class: 'LocalBranch', localBranch: "${BRANCH}"]],
+		submoduleCfg: [],
+		userRemoteConfigs: [[url: "${GITURL}/${GIT_SQL_REPO}.git"]]
+	])
+      }
+    }
 
-            stage('Branches') {
+    stage('Branches') {
               steps {
                 sh '''
           		#{ set +x; } 2>/dev/null
@@ -130,6 +130,8 @@ pipeline {
                         then
 				/opt/datical/dxtoolkit2/dx_provision_vdb -engine delphix-vm-n-6 -type oracle -group Oracle_Targets -sourcename orcl -targetname VBITT -environment "172.16.129.133" -envinst "/u01/app/oracle/product/11.2.0.4/db_1" -template 200M -dbname VBITT -mntpoint /mnt/provision -autostart yes 
 				/opt/datical/dxtoolkit2/masking.sh 10
+			        /opt/datical/dxtoolkit2/masking.sh 14
+				##/opt/datical/dxtoolkit2/dx_snapshot_db -engine delphix-vm-n-6 -name VBITT 
 			fi   
                     '''
                   }
