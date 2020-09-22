@@ -4,15 +4,15 @@ pipeline {
     stage('Precheck') {
       steps {
         sh '''
-				echo ORACLE_HOME=${ORACLE_HOME}
-				echo PATH=${PATH}
-				whoami
-				which git
-				#which expdp
-				git --version
-				git config --global user.email "jenkins@datical.com"
-				git config --global user.name "jenkins"
-			'''
+			echo ORACLE_HOME=${ORACLE_HOME}
+			echo PATH=${PATH}
+			whoami
+			which git
+			#which expdp
+			git --version
+			git config --global user.email "jenkins@datical.com"
+			git config --global user.name "jenkins"
+		'''
       }
     }
 
@@ -129,8 +129,8 @@ pipeline {
 			if [[ "${RESULTS}" == "" ]]
                         then
 				/opt/datical/dxtoolkit2/dx_provision_vdb -engine delphix-vm-n-6 -type oracle -group Oracle_Targets -sourcename orcl -targetname VBITT -environment "172.16.129.133" -envinst "/u01/app/oracle/product/11.2.0.4/db_1" -template 200M -dbname VBITT -mntpoint /mnt/provision -autostart yes 
-				/opt/datical/dxtoolkit2/masking.sh 10
-			        /opt/datical/dxtoolkit2/masking.sh 14
+				/opt/datical/dxtoolkit2/masking.sh 15
+			        ##/opt/datical/dxtoolkit2/masking.sh 10  # or 14 Med
 				##/opt/datical/dxtoolkit2/dx_snapshot_db -engine delphix-vm-n-6 -name VBITT 
 			fi   
                     '''
