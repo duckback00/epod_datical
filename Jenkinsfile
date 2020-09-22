@@ -20,25 +20,25 @@ pipeline {
       steps {
         deleteDir()
         checkout([
-                                                        $class: 'GitSCM',
-                                                        branches: [[name: '*/master']],
-                                                        doGenerateSubmoduleConfigurations: false,
-                                                        extensions: [
-                                                                     [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_DDB}"],
-                                                                     [$class: 'LocalBranch', localBranch: 'master']],
-                                                                     submoduleCfg: [],
-                                                                     userRemoteConfigs: [[url: "${GITURL}/${GIT_DATICAL_REPO}.git"]]
-                                                                ])
+                              $class: 'GitSCM',
+                              branches: [[name: '*/master']],
+                              doGenerateSubmoduleConfigurations: false,
+                              extensions: [
+                                   [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_DDB}"],
+                                   [$class: 'LocalBranch', localBranch: 'master']],
+                                   submoduleCfg: [],
+                                   userRemoteConfigs: [[url: "${GITURL}/${GIT_DATICAL_REPO}.git"]]
+                               ])
             checkout([
-                                                                        $class: 'GitSCM',
-                                                                        branches: [[name: "$BRANCH"]],
-                                                                        doGenerateSubmoduleConfigurations: false,
-                                                                        extensions: [
-                                                                                      [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_SQL}"], 
-                                                                                      [$class: 'LocalBranch', localBranch: "${BRANCH}"]],
-                                                                                      submoduleCfg: [],
-                                                                                      userRemoteConfigs: [[url: "${GITURL}/${GIT_SQL_REPO}.git"]]
-                                                                                ])
+                               $class: 'GitSCM',
+                               branches: [[name: "$BRANCH"]],
+                               doGenerateSubmoduleConfigurations: false,
+                               extensions: [
+                                     [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PROJ_SQL}"], 
+                                     [$class: 'LocalBranch', localBranch: "${BRANCH}"]],
+                                     submoduleCfg: [],
+                                     userRemoteConfigs: [[url: "${GITURL}/${GIT_SQL_REPO}.git"]]
+                               ])
               }
             }
 
@@ -117,7 +117,8 @@ pipeline {
                   }
                 }
 
-                stage('DevDB') {
+		stages {
+                 stage('DevDB') {
                   steps {
                     sh '''
 			{ set -x; } 2>/dev/null
@@ -134,6 +135,24 @@ pipeline {
                     echo 'Masking'
                   }
                 }
+		
+		stage('Masking') {
+                  steps {
+                    sh '''
+			{ set -x; } 2>/dev/null
+											  
+			###cd ${PROJ_DDB}
+			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
+			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json | jq ".results[] | select(.Database == \\"VBITT\\")"`
+			echo "Database Up Results: ${RESULTS}"
+			if [[ "${RESULTS}" != "" ]]
+                        then
+				/opt/datical/dxtoolkit2/masking 10
+			fi   
+                    '''
+                  }
+                 }
+		}
 
               }
             }
