@@ -117,8 +117,7 @@ pipeline {
                   }
                 }
 
-		stages {
-                 stage('DevDB') {
+                stage('DevDB') {
                   steps {
                     sh '''
 			{ set -x; } 2>/dev/null
@@ -130,29 +129,13 @@ pipeline {
 			if [[ "${RESULTS}" == "" ]]
                         then
 				/opt/datical/dxtoolkit2/dx_provision_vdb -engine delphix-vm-n-6 -type oracle -group Oracle_Targets -sourcename orcl -targetname VBITT -environment "172.16.129.133" -envinst "/u01/app/oracle/product/11.2.0.4/db_1" -template 200M -dbname VBITT -mntpoint /mnt/provision -autostart yes 
-			fi   
-                    '''
-                    echo 'Masking'
-                  }
-                }
-		
-		stage('Masking') {
-                  steps {
-                    sh '''
-			{ set -x; } 2>/dev/null
-											  
-			###cd ${PROJ_DDB}
-			PATH=/home/delphix_os/DaticalDB/repl:${PATH}
-			RESULTS=`/opt/datical/dxtoolkit2/dx_get_db_env -engine delphix-vm-n-6 --format json | jq ".results[] | select(.Database == \\"VBITT\\")"`
-			echo "Database Up Results: ${RESULTS}"
-			if [[ "${RESULTS}" != "" ]]
-                        then
 				/opt/datical/dxtoolkit2/masking 10
 			fi   
                     '''
                   }
-                 }
-		}
+                }
+		
+
 
               }
             }
